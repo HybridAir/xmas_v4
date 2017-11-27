@@ -1,0 +1,32 @@
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+.travis.yml
+lib/
+docs/
+hardware/
+
+# Ignore list for Eagle, a PCB layout tool
+
+# Backup files
+*.s#?
+*.b#?
+*.l#?
+
+# Eagle project file
+eagle.epf
+DESCRIPTION
+
+# Gerber files
+*.GBL
+*.GBO
+*.zip
+*.GBS
+*.GML
+*.GTL
+*.GTO
+*.GTS
+*.TXT
+*.dri
+*.gpi
