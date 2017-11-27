@@ -5,8 +5,8 @@
 .travis.yml
 lib/
 docs/
-hardware/pcb_art
-hardware/xmas_v4
+hardware/pcb_art/
+hardware/xmas_v4/
 
 # Ignore list for Eagle, a PCB layout tool
 
