@@ -52,11 +52,16 @@ void shutdown() {
     FastLED.clear();                                                            // turn the leds off
     FastLED.show();
     EEPROM.write(0, currentAnim());                                             // save the current animation to the eeprom
-    delay(100);                                                                 // time to stabilize
-    PORTB &= ~_BV(BUTTON_PIN);                                                  // turn off the button pin pullup
-    delay(100);                                                                 // time to stabilize
-    PORTB &= ~_BV(POWER_PIN);                                                   // turn off the power now
-    delay(100);                                                                 // delay here to prevent the leds from coming back while the latch turns off
+    delay(1000);                                                                // time to stabilize
+
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);                                        // set the sleep mode
+    sleep_enable();                                                             // sets the Sleep Enable bit in the MCUCR Register (SE BIT)
+
+    // turn off the power and button pullup pins
+    DDRB = 0;
+    PORTB = 0;
+    sleep_cpu();                            // sleep (just in case)
+    delay(1000);                                                                // delay here to prevent the leds from coming back while the latch turns off
 }
 
 
@@ -73,6 +78,14 @@ void checkButton() {
         else {                                                                  // if the button was just released
             if(millis() >= btnTimer + SLEEP_DELAY) {                            // and if it was held for SLEEP_DELAY ms
                 // go to sleep here
+
+                //FastLED.clear();                                                            // turn the leds off
+                //FastLED.show();
+                //EEPROM.write(0, currentAnim());                                             // save the current animation to the eeprom
+
+                //while(!(PINB & _BV(BUTTON_PIN))) {}
+
+
                 shutdown();
             }
             else if(millis() >= btnTimer + ANIM_DELAY) {                        // if the button was only held for at least ANIM_DELAY ms (essentially a small debounce)

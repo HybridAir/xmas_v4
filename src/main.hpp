@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "FastLED.h"
 #include <EEPROM.h>
+#include <avr/sleep.h>
 
 
 #define BUTTON_PIN PB1
